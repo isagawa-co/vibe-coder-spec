@@ -1,3 +1,9 @@
+---
+name: vibe-coder-workflow
+type: workflow
+parent: vibe-coder
+---
+
 # Vibe Coder Workflow
 
 Phase execution order, data flow, and artifact locations.
@@ -64,7 +70,7 @@ _generated/architecture/
 
 The protocol reference updates to point to `_generated/architecture/index.md`.
 
-## Gate Checkpoints
+## HITL Gate Checkpoints
 
 | Between | Checkpoint | Purpose |
 |---------|-----------|---------|
@@ -80,6 +86,22 @@ The protocol reference updates to point to `_generated/architecture/index.md`.
 ## Kernel Integration
 
 - After Phase 4 scaffold, run `/kernel/domain-setup`
-- Protocol points to `_generated/architecture.md`
+- Protocol points to `_generated/architecture.md` as the enforcement reference
 - `/kernel/anchor` reads architecture as the protocol reference
-- `/kernel/learn` can add anti-patterns to architecture doc
+- `/kernel/learn` records anti-patterns discovered during feature dev
+- Self-binding: the agent enforces its own generated architecture on all subsequent code
+
+## State Persistence
+
+Track current phase in session state:
+```json
+{
+  "current_phase": 1,
+  "phase_1_complete": false,
+  "phase_2_complete": false,
+  "phase_3_complete": false,
+  "phase_4_complete": false,
+  "features_completed": [],
+  "chosen_stack": null
+}
+```
